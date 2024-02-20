@@ -1,0 +1,363 @@
+#:import utils kivy.utils
+
+<RButton@Button>:
+    background_color: 0,0,0,0  # the last zero is the critical on, make invisible
+    canvas.before:
+        Color:
+            rgba: (.4,.4,.4,1) if self.state=='normal' else (0,.7,.7,1)  # visual feedback of press
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10,]
+
+
+<CustomButton@Button>:
+    background_color: utils.get_color_from_hex('#52FFC7')
+
+
+<MyLabel@Label>:
+    font_name: 'Lordcorps'
+
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            filters: ['*.ogg', '*.mp3', '*.wav', '*.m4a', '*.flac', '*.aac']
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+
+BoxLayout:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#403E3F')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: 'vertical'
+    padding: 10
+
+    TabbedPanel:
+        tab_pos: 'top_mid'
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        do_default_tab: False
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#1D1D1D')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        TabbedPanelItem:
+            text: 'Drum Pad'
+            background_color: utils.get_color_from_hex('#52FFC7')
+
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#0D0D0D')
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                MyLabel:
+                    pos_hint: {'center_x': .5, 'center_y': .95}
+                    size_hint: .2, .1
+                    text: 'Drum Pad'
+                    font_size: 30
+
+                Button:
+                    id: btn_record
+                    pos_hint: {'center_x': .2, 'center_y': .875}
+                    size_hint: .2, .05
+                    background_color: utils.get_color_from_hex('#FFC752')
+                Button:
+                    id: btn_samplepack
+                    pos_hint: {'center_x': .5, 'center_y': .875}
+                    size_hint: .4, .05
+                    on_release: app.change_samplepack()
+                    background_color: utils.get_color_from_hex('#52C7FF')
+                Button:
+                    id: btn_theme
+                    pos_hint: {'center_x': .8, 'center_y': .875}
+                    size_hint: .2, .05
+                    background_color: utils.get_color_from_hex('#FFC752')
+
+
+                MyLabel:
+                    pos_hint: {'center_x': .5, 'center_y': .8}
+                    size_hint: .2, .1
+                    text: 'Loops'
+                    font_size: 24
+                CustomButton:
+                    id: btn_loop1
+                    pos_hint: {'center_x': .2, 'center_y': .7}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(0)
+                CustomButton:
+                    id: btn_loop2
+                    pos_hint: {'center_x': .4, 'center_y': .7}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(1)
+                CustomButton:
+                    id: btn_loop3
+                    pos_hint: {'center_x': .6, 'center_y': .7}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(2)
+                CustomButton:
+                    id: btn_loop4
+                    pos_hint: {'center_x': .8, 'center_y': .7}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(3)
+
+                CustomButton:
+                    id: btn_loop5
+                    pos_hint: {'center_x': .2, 'center_y': .6}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(4)
+                CustomButton:
+                    id: btn_loop6
+                    pos_hint: {'center_x': .4, 'center_y': .6}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(5)
+                CustomButton:
+                    id: btn_loop7
+                    pos_hint: {'center_x': .6, 'center_y': .6}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(6)
+                CustomButton:
+                    id: btn_loop8
+                    pos_hint: {'center_x': .8, 'center_y': .6}
+                    size_hint: .2, .1
+                    on_press: app.play_loop(7)
+
+
+                MyLabel:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    size_hint: .2, .1
+                    text: 'One Shots'
+                    font_size: 24
+                CustomButton:
+                    id: btn_oneshot1
+                    pos_hint: {'center_x': .2, 'center_y': .4}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(0)
+                CustomButton:
+                    id: btn_oneshot2
+                    pos_hint: {'center_x': .4, 'center_y': .4}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(1)
+                CustomButton:
+                    id: btn_oneshot3
+                    pos_hint: {'center_x': .6, 'center_y': .4}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(2)
+                CustomButton:
+                    id: btn_oneshot4
+                    pos_hint: {'center_x': .8, 'center_y': .4}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(3)
+
+                CustomButton:
+                    id: btn_oneshot5
+                    pos_hint: {'center_x': .2, 'center_y': .3}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(4)
+                CustomButton:
+                    id: btn_oneshot6
+                    pos_hint: {'center_x': .4, 'center_y': .3}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(5)
+                CustomButton:
+                    id: btn_oneshot7
+                    pos_hint: {'center_x': .6, 'center_y': .3}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(6)
+                CustomButton:
+                    id: btn_oneshot8
+                    pos_hint: {'center_x': .8, 'center_y': .3}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(7)
+
+                CustomButton:
+                    id: btn_oneshot9
+                    pos_hint: {'center_x': .2, 'center_y': .2}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(8)
+                CustomButton:
+                    id: btn_oneshot10
+                    pos_hint: {'center_x': .4, 'center_y': .2}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(9)
+                CustomButton:
+                    id: btn_oneshot11
+                    pos_hint: {'center_x': .6, 'center_y': .2}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(10)
+                CustomButton:
+                    id: btn_oneshot12
+                    pos_hint: {'center_x': .8, 'center_y': .2}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(11)
+
+                CustomButton:
+                    id: btn_oneshot13
+                    pos_hint: {'center_x': .2, 'center_y': .1}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(12)
+                CustomButton:
+                    id: btn_oneshot14
+                    pos_hint: {'center_x': .4, 'center_y': .1}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(13)
+                CustomButton:
+                    id: btn_oneshot15
+                    pos_hint: {'center_x': .6, 'center_y': .1}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(14)
+                CustomButton:
+                    id: btn_oneshot16
+                    pos_hint: {'center_x': .8, 'center_y': .1}
+                    size_hint: .2, .1
+                    on_press: app.play_oneshot(15)
+
+
+
+        TabbedPanelItem:
+            text: 'Settings'
+            background_color: utils.get_color_from_hex('#52C7FF')
+
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#0D0D0D')
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                MyLabel:
+                    pos_hint: {'center_x': .5, 'center_y': .95}
+                    size_hint: .2, .1
+                    text: 'Drum Pad'
+                    font_size: 30
+
+                MyLabel:
+                    id: lbl_loop
+                    pos_hint: {'center_x': .5, 'center_y': .875}
+                    size_hint: .2, .05
+                    valign: 'middle'
+                    text: 'Loop 1'
+                    font_size: 24
+                Button:
+                    id: btn_prev_loop
+                    pos_hint: {'center_x': .2, 'center_y': .875}
+                    size_hint: .2, .05
+                    on_release: app.change_loop_setting_prev()
+                    background_color: utils.get_color_from_hex('#52C7FF')
+                    text: '<'
+                Button:
+                    id: btn_next_loop
+                    pos_hint: {'center_x': .8, 'center_y': .875}
+                    size_hint: .2, .05
+                    on_release: app.change_loop_setting_next()
+                    background_color: utils.get_color_from_hex('#52C7FF')
+                    text: '>'
+                Label:
+                    id: lbl_loop_path
+                    text_size: (root.width * .8, None)
+                    halign: 'center'
+                    pos_hint: {'center_x': .5, 'center_y': .8}
+                    size_hint: .2, .05
+                    shorten: True
+                    font_size: 18
+                Button:
+                    id: btn_change_loop
+                    text: 'Change file'
+                    pos_hint: {'center_x': .5, 'center_y': .725}
+                    size_hint: .8, .05
+                    on_release: app.show_load_loop()
+                    background_color: utils.get_color_from_hex('#52FFC7')
+                Label:
+                    id: lbl_loop_volume
+                    pos_hint: {'center_x': .1, 'center_y': .65}
+                    size_hint: .2, .05
+                    text: 'Volume:'
+                    font_size: 18
+                Label:
+                    id: lbl_loop_volume_value
+                    pos_hint: {'center_x': .95, 'center_y': .65}
+                    size_hint: .1, .05
+                    font_size: 18
+                Slider:
+                    id: sld_loop_volume
+                    pos_hint: {'center_x': .55, 'center_y': .65}
+                    size_hint: .7, .05
+                    on_touch_move: app.change_volume_loop(lbl_loop, self.value)
+
+
+                MyLabel:
+                    id: lbl_oneshot
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    size_hint: .2, .05
+                    text: 'One Shot 1'
+                    valign: 'middle'
+                    font_size: 24
+                Button:
+                    id: btn_prev_oneshot
+                    pos_hint: {'center_x': .2, 'center_y': .5}
+                    size_hint: .2, .05
+                    on_release: app.change_oneshot_setting_prev()
+                    background_color: utils.get_color_from_hex('#52C7FF')
+                    text: '<'
+                Button:
+                    id: btn_next_oneshot
+                    pos_hint: {'center_x': .8, 'center_y': .5}
+                    size_hint: .2, .05
+                    on_release: app.change_oneshot_setting_next()
+                    background_color: utils.get_color_from_hex('#52C7FF')
+                    text: '>'
+                Label:
+                    id: lbl_oneshot_path
+                    pos_hint: {'x': 0, 'center_y': .425}
+                    size_hint_y: .05
+                    font_size: 18
+                    text_size: (root.width * .8, None)
+                    halign: 'center'
+                    shorten: True
+                Button:
+                    id: btn_change_oneshot
+                    text: 'Change file'
+                    pos_hint: {'center_x': .5, 'center_y': .35}
+                    size_hint: .8, .05
+                    on_release: app.show_load_oneshot()
+                    background_color: utils.get_color_from_hex('#52FFC7')
+                Label:
+                    id: lbl_oneshot_volume
+                    pos_hint: {'center_x': .1, 'center_y': .275}
+                    size_hint: .2, .05
+                    text: 'Volume:'
+                    font_size: 18
+                Label:
+                    id: lbl_oneshot_volume_value
+                    pos_hint: {'center_x': .95, 'center_y': .275}
+                    size_hint: .1, .05
+                    text: '100'
+                    font_size: 18
+                Slider:
+                    id: sld_oneshot_volume
+                    pos_hint: {'center_x': .55, 'center_y': .275}
+                    size_hint: .7, .05
+                    on_touch_move: app.change_volume_oneshot(lbl_oneshot, self.value)
+
